@@ -4,9 +4,11 @@
 Twitter インテグレーションは他にもいくつかありますが、TweetMedia は画像と動画 (アニメ gif、mp4) の投稿まで対応しているのが特徴です。
 ゲーム内からメッセージとスクリーンショットを投稿することを目的としたもので、現状それ以外の機能はありません。  
 Vista 以降の Windows (32bit & 64bit) で動作します。ソースコードレベルでは CURL と C++11 が使える環境であればコンパイルできて動作するはずですが、未確認です。  
+  
+[FrameCapturer](https://github.com/unity3d-jp/FrameCapturer) がこれを用いてゲーム画面のキャプチャから Twitter への投稿までを実装しています。具体的な使い方の例になると思われます。  
 
 ### 使い方
-1. このパッケージをインポート
+1. [このパッケージ](https://github.com/unity3d-jp/TweetMedia/raw/master/Package/TweetMedia.unitypackage) をインポート
 2. UGUI オブジェクト TweetMedia.prefab をシーン内に設定
 3. TweetMedia の consumer_key, consumer_secret を設定
 
