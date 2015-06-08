@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="urlencode.cpp" />
+    <ClCompile Include="base64.cpp" />
+    <ClCompile Include="HMAC_SHA1.cpp" />
+    <ClCompile Include="oauthlib.cpp" />
+    <ClCompile Include="SHA1.cpp" />
+    <ClCompile Include="twitcurl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base64.h" />
+    <ClInclude Include="HMAC_SHA1.h" />
+    <ClInclude Include="oauthlib.h" />
+    <ClInclude Include="SHA1.h" />
+    <ClInclude Include="twitcurl.h" />
+    <ClInclude Include="twitcurlurls.h" />
+    <ClInclude Include="urlencode.h" />
+  </ItemGroup>
+</Project>
