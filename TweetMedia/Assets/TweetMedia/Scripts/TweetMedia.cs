@@ -35,9 +35,21 @@ public class TweetMedia : MonoBehaviour
     TweetMediaPlugin.tmContext m_ctx;
     Action<AuthStateCode> m_on_change_auth_state;
     Action<TweetStateCode> m_on_change_tweet_state;
+    List<Action> m_on_tweet_handlers = new List<Action>();
     string m_auth_url = "";
     string m_error_message = "";
     string m_pin = "";
+
+
+    public void AddOnTweetHandler(Action act)
+    {
+        m_on_tweet_handlers.Add(act);
+    }
+
+    public void RemoveOnTweetHandler(Action act)
+    {
+        m_on_tweet_handlers.Remove(act);
+    }
 
 
     public Action<AuthStateCode> on_change_auth_state
@@ -216,6 +228,7 @@ public class TweetMedia : MonoBehaviour
 
     public void BeginTweet(string message)
     {
+        m_on_tweet_handlers.ForEach((act) => { act.Invoke(); });
         StartCoroutine(Tweet(message));
     }
 
