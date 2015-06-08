@@ -27,6 +27,8 @@ public:
     oAuth();
     ~oAuth();
 
+    void reset();
+
     /* OAuth public methods used by twitCurl */
     void getConsumerKey( std::string& consumerKey /* out */ );
     void setConsumerKey( const std::string& consumerKey /* in */ );

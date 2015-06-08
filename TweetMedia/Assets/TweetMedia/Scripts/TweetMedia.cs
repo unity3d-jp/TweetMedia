@@ -102,6 +102,8 @@ public class TweetMedia : MonoBehaviour
         TweetMediaPlugin.tmVerifyCredentialsAsync(m_ctx);
 
         bool authorized = false;
+
+        // 保存された token が有効かチェック
         while (enabled)
         {
             var state = TweetMediaPlugin.tmGetVerifyCredentialsState(m_ctx);
@@ -126,8 +128,10 @@ public class TweetMedia : MonoBehaviour
             }
         }
 
-        if (!authorized)
+        // token が無効な場合認証処理開始
+        while (enabled && !authorized)
         {
+            // 認証 URL を取得
             TweetMediaPlugin.tmRequestAuthURLAsync(m_ctx, m_consumer_key, m_consumer_secret);
             auth_state = AuthStateCode.RequestAuthURLBegin;
             while (enabled)
@@ -141,7 +145,6 @@ public class TweetMedia : MonoBehaviour
                 {
                     if (state.code == TweetMediaPlugin.tmEStatusCode.Succeeded)
                     {
-                        authorized = true;
                         m_auth_url = state.auth_url;
                         auth_state = AuthStateCode.RequestAuthURLSucceeded;
                     }
@@ -149,14 +152,17 @@ public class TweetMedia : MonoBehaviour
                     {
                         m_error_message = state.error_message;
                         auth_state = AuthStateCode.RequestAuthURLFailed;
+                        // ここで失敗したらほとんど続けようがない (consumer key & secret が無効かネットワーク障害)
                         yield break;
                     }
                     break;
                 }
             }
 
+            // pin の入力を待って送信
             while (enabled && m_pin.Length == 0) { yield return 0; }
 
+            m_error_message = "";
             TweetMediaPlugin.tmEnterPinAsync(m_ctx, m_pin);
             m_pin = "";
             auth_state = AuthStateCode.EnterPinBegin;
@@ -179,11 +185,11 @@ public class TweetMedia : MonoBehaviour
                     {
                         m_error_message = state.error_message;
                         auth_state = AuthStateCode.EnterPinFailed;
-                        yield break;
                     }
                     break;
                 }
             }
+
         }
     }
 

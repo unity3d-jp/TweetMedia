@@ -55,11 +55,11 @@ bool tmContext::loadCredentials(const char *path)
     if (!f) { return false; }
 
     std::string tmp;
-    oAuth &oa = m_twitter.getOAuth();
-    f >> tmp; oa.setConsumerKey(tmp);
-    f >> tmp; oa.setConsumerSecret(tmp);
-    f >> tmp; oa.setOAuthTokenKey(tmp);
-    f >> tmp; oa.setOAuthTokenSecret(tmp);
+    oAuth &oauth = m_twitter.getOAuth();
+    f >> tmp; oauth.setConsumerKey(tmp);
+    f >> tmp; oauth.setConsumerSecret(tmp);
+    f >> tmp; oauth.setOAuthTokenKey(tmp);
+    f >> tmp; oauth.setOAuthTokenSecret(tmp);
     return true;
 }
 
@@ -70,11 +70,11 @@ bool tmContext::saveCredentials(const char *path)
     if (!f) { return false; }
 
     std::string tmp;
-    oAuth &oa = m_twitter.getOAuth();
-    oa.getConsumerKey(tmp);     f << tmp << std::endl;
-    oa.getConsumerSecret(tmp);  f << tmp << std::endl;
-    oa.getOAuthTokenKey(tmp);   f << tmp << std::endl;
-    oa.getOAuthTokenSecret(tmp);f << tmp << std::endl;
+    oAuth &oauth = m_twitter.getOAuth();
+    oauth.getConsumerKey(tmp);     f << tmp << std::endl;
+    oauth.getConsumerSecret(tmp);  f << tmp << std::endl;
+    oauth.getOAuthTokenKey(tmp);   f << tmp << std::endl;
+    oauth.getOAuthTokenSecret(tmp);f << tmp << std::endl;
     return true;
 }
 
@@ -147,8 +147,10 @@ tmAuthState tmContext::getVerifyCredentialsState()
 tmAuthState tmContext::requestAuthURL(const char *consumer_key, const char *consumer_secret)
 {
     tmEStatusCode code = tmEStatusCode_Failed;
-    m_twitter.getOAuth().setConsumerKey(consumer_key);
-    m_twitter.getOAuth().setConsumerSecret(consumer_secret);
+    oAuth &oauth = m_twitter.getOAuth();
+    oauth.reset();
+    oauth.setConsumerKey(consumer_key);
+    oauth.setConsumerSecret(consumer_secret);
     if (m_twitter.oAuthRequestToken(m_auth_url)) {
         code = getErrorMessage(m_auth_error) ? tmEStatusCode_Failed : tmEStatusCode_Succeeded;
     }

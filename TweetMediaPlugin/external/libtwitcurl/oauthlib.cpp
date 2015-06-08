@@ -32,6 +32,11 @@ oAuth::~oAuth()
 {
 }
 
+void oAuth::reset()
+{
+    *this = oAuth();
+}
+
 /*++
 * @method: oAuth::clone
 *

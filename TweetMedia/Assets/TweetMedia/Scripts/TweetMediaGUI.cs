@@ -14,7 +14,9 @@ public class TweetMediaGUI : MonoBehaviour
     public GameObject m_ui_auth;
     public GameObject m_ui_tweet;
     public UnityEngine.UI.Text m_text_status;
+    public UnityEngine.UI.Button m_button_auth_url;
     public UnityEngine.UI.InputField m_input_pin;
+    public UnityEngine.UI.Button m_button_pin;
     public UnityEngine.UI.InputField m_input_message;
     public UnityEngine.UI.Button m_button_tweet;
 
@@ -30,39 +32,48 @@ public class TweetMediaGUI : MonoBehaviour
         switch(code)
         {
             case TweetMedia.AuthStateCode.VerifyingCredentialsBegin:
-                status_text = "verifying credentials: begin";
+                status_text = "";
+                m_ui_auth.SetActive(false);
+                m_ui_tweet.SetActive(false);
                 break;
             case TweetMedia.AuthStateCode.VerifyingCredentialsSucceeded:
-                status_text = "verifying credentials: succeeded";
                 m_ui_tweet.SetActive(true);
                 break;
             case TweetMedia.AuthStateCode.VerifyingCredentialsFailed:
-                status_text = "verifying credentials: failed\n" + m_tweet_media.error_message;
+                m_ui_auth.SetActive(true);
                 break;
 
             case TweetMedia.AuthStateCode.RequestAuthURLBegin:
-                status_text = "request auth URL: begin";
+                m_input_pin.text = "";
+                m_button_auth_url.interactable = false;
+                m_input_pin.interactable = false;
+                m_button_pin.interactable = false;
                 break;
             case TweetMedia.AuthStateCode.RequestAuthURLSucceeded:
-                status_text = "request auth URL: succeeded";
-                m_ui_auth.SetActive(true);
+                m_button_auth_url.interactable = true;
+                m_input_pin.interactable = true;
+                m_button_pin.interactable = true;
                 break;
             case TweetMedia.AuthStateCode.RequestAuthURLFailed:
-                status_text = "request auth URL: failed\n" + m_tweet_media.error_message;
+                status_text = m_tweet_media.error_message;
                 break;
 
             case TweetMedia.AuthStateCode.EnterPinBegin:
-                status_text = "enter pin: begin";
+                status_text = "";
                 break;
             case TweetMedia.AuthStateCode.EnterPinSucceeded:
-                status_text = "enter pin: succeeded";
                 m_ui_auth.SetActive(false);
                 m_ui_tweet.SetActive(true);
                 break;
             case TweetMedia.AuthStateCode.EnterPinFailed:
-                status_text = "enter pin: failed\n" + m_tweet_media.error_message;
+                status_text = m_tweet_media.error_message;
                 break;
         }
+    }
+
+    public virtual void OnMessageUpdated()
+    {
+        status_text = m_input_message.text.Length.ToString() + " char";
     }
 
 
@@ -97,18 +108,18 @@ public class TweetMediaGUI : MonoBehaviour
         switch (code)
         {
             case TweetMedia.TweetStateCode.Begin:
-                status_text = "tweet: in progress";
+                status_text = "Tweet in progress...";
                 m_input_message.interactable = false;
                 m_button_tweet.interactable = false;
                 break;
             case TweetMedia.TweetStateCode.Succeeded:
                 m_input_message.text = "";
-                status_text = "tweet: succeeded";
+                status_text = "Succeeded!";
                 m_input_message.interactable = true;
                 m_button_tweet.interactable = true;
                 break;
             case TweetMedia.TweetStateCode.Failed:
-                status_text = "tweet: failed\n" + m_tweet_media.error_message;
+                status_text = "Failed: " + m_tweet_media.error_message;
                 m_input_message.interactable = true;
                 m_button_tweet.interactable = true;
                 break;
