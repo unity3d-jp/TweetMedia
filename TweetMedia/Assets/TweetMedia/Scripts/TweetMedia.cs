@@ -94,7 +94,10 @@ public class TweetMedia : MonoBehaviour
 
     public void BeginAuthorize()
     {
-        StartCoroutine(Authorize());
+        if (m_ctx.ptr != IntPtr.Zero)
+        {
+            StartCoroutine(Authorize());
+        }
     }
 
     IEnumerator Authorize()
@@ -247,6 +250,10 @@ public class TweetMedia : MonoBehaviour
 
     void OnEnable()
     {
+        if(m_consumer_key=="" || m_consumer_secret=="")
+        {
+            Debug.LogError("TweetMedia: set consumer_key and consumer_secret!");
+        }
         m_ctx = TweetMediaPlugin.tmCreateContext();
         TweetMediaPlugin.tmLoadCredentials(m_ctx, m_path_to_savedata);
     }
