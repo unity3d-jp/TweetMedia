@@ -4,12 +4,13 @@
 Twitter インテグレーションは他にもいくつかありますが、TweetMedia は画像と動画 (アニメ gif、mp4) の投稿まで対応しているのが特徴です。
 ゲーム内からメッセージとスクリーンショットを投稿することを目的としたもので、現状それ以外の機能はありません。  
 Vista 以降の Windows (32bit & 64bit) で動作します。ソースコードレベルでは CURL と C++11 が使える環境であればコンパイルできて動作するはずですが、未確認です。  
-  
+
 [FrameCapturer](https://github.com/unity3d-jp/FrameCapturer) がこれを用いてゲーム画面のキャプチャから Twitter への投稿までを実装しています。具体的な使い方の例になると思われます。  
+<img src="Screenshots/TweetMedia.png" width=340 /><img src="Screenshots/result.png" width=340 />
 
 ### 使い方
 1. [このパッケージ](https://github.com/unity3d-jp/TweetMedia/raw/master/Package/TweetMedia.unitypackage) をインポート
-2. UGUI オブジェクト TweetMedia.prefab をシーン内に設定
+2. uGUI オブジェクト TweetMedia.prefab をシーン内に配置
 3. TweetMedia の consumer_key, consumer_secret を設定
 
 3 について、consumer key / secret は Twitter にアプリを登録することで発行されます。
@@ -17,7 +18,7 @@ Vista 以降の Windows (32bit & 64bit) で動作します。ソースコード�
 
 ゲームをプレイする側はゲームに Twitter にアクセスする許可を与える必要があります。  
 TweetMedia.prefab を使っている場合、"Open authorize URL" ボタンを押すとブラウザが開き、認証画面に移動します。  
-認証画面の "Authorize app" を押し、その後出てくる PIN を "enter PIN" の InputField にコピー＆ペーストして Send ボタンを押すことで認証が完了します。  
+ブラウザの認証画面の "Authorize app" を押し、その後出てくる PIN をゲーム内の InputField ("enter PIN") にコピー＆ペーストして Send ボタンを押すことで認証が完了します。  
 一度認証すればあとはその情報を保存することでこの手順は不要になります。(デフォルトで保存するようになっています)  
 TweetMedia.prefab は見た目も機能も必要最小限しか備えていないため、独自に改良することをおすすめいたします。  
 ![auth](Screenshots/auth.png)
