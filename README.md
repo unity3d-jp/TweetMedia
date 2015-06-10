@@ -32,8 +32,10 @@ TweetMedia.prefab は見た目も機能も必要最小限しか備えていな�
 Twitter の仕様は頻繁に変わるため、TweetMedia 側でのチェックはあえてやっていません。
 
 ### 謝辞
-Twitter の API を叩くのに twitcurl に手を加えたものを使用しています。オリジナルからの変更点は、画像/動画アップロードへの対応です。(media/upload)
-オリジナル: https://github.com/swatkat/twitcurl  
-fork: https://github.com/i-saint/twitcurl  
-twitcurl は libcurl を使用しています。  
-http://curl.haxx.se/libcurl/  
+- Twitter の API を叩くのに twitcurl に手を加えたものを使用しています。オリジナルからの変更点は、画像/動画アップロードへの対応です。  
+  オリジナル: https://github.com/swatkat/twitcurl  
+  fork: https://github.com/i-saint/twitcurl  
+- twitcurl は libcurl を使用しています。画像アップロードもこれで実装しました。  
+  http://curl.haxx.se/libcurl/  
+- JSON のパースに picojson を使用しています。
+  https://github.com/kazuho/picojson
