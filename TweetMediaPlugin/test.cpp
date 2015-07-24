@@ -189,10 +189,7 @@ void DoTest(TestBase &test)
             }
         }
 
-        //tcFileToString(stat, "stat.txt");
-        printf("tweet:\n");
-        gets(buf1);
-        stat = buf1;
+        tmFileToString(stat, "stat.txt");
 
         auto st = test.tweet(stat.c_str());
         if (st.code == tmEStatusCode_Succeeded) {

@@ -83,7 +83,7 @@ tmCLinkage tmExport tmTweetState    tmGetTweetState(tmContext *ctx, int thandle)
 tmCLinkage tmExport void            tmReleaseTweetCache(tmContext *ctx, int thandle);
 
 
-bool                                tmFileToString(std::string &o_buf, const char *path);
-twitCurlTypes::eTwitCurlMediaType   tmGetMediaTypeByFilename(const char *path);
+tmExport bool                                tmFileToString(std::string &o_buf, const char *path);
+tmExport twitCurlTypes::eTwitCurlMediaType   tmGetMediaTypeByFilename(const char *path);
 
 #endif // TweetMedia_h
